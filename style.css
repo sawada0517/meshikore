@@ -86,7 +86,7 @@ section{padding:72px 0}
 .contact-form{max-width:600px;margin:0 auto;background:var(--card);border-radius:20px;padding:32px;box-shadow:var(--shadow)}
 .field{margin-bottom:18px}
 .field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-.field input,.field textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;background:#fff;color:var(--text)}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;background:#fff;color:var(--text)}
 .field textarea{min-height:130px;resize:vertical}
 .contact-form .btn-primary{width:100%;padding:15px;font-size:16px}
 
