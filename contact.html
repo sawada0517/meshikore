@@ -16,7 +16,7 @@
     <p>ご質問・ご要望・不具合のご報告など、お気軽にメールでご連絡ください。</p>
 
     <!-- TODO: action を にゃんろぐと同じ送信先（Formspree等のURL）に置き換えてください -->
-    <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST" style="margin-top:24px">
+    <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST" enctype="multipart/form-data" style="margin-top:24px">
       <div class="field"><label for="name">お名前 *</label><input id="name" name="name" type="text" required placeholder="山田 太郎"></div>
       <div class="field"><label for="email">メールアドレス *</label><input id="email" name="email" type="email" required placeholder="you@example.com"></div>
       <div class="field">
@@ -29,6 +29,11 @@
         </select>
       </div>
       <div class="field"><label for="message">お問い合わせ内容 *</label><textarea id="message" name="message" required placeholder="ご質問・ご要望をご記入ください"></textarea></div>
+      <div class="field">
+        <label for="attachment">スクリーンショット添付（任意）</label>
+        <input id="attachment" name="attachment" type="file" accept="image/*">
+        <p style="font-size:11px;color:var(--light);margin-top:6px">画像（PNG/JPEG）を1枚添付できます。不具合のご報告時にご活用ください。</p>
+      </div>
       <button class="btn btn-primary" type="submit">送信する</button>
       <p style="font-size:12px;color:var(--light);margin-top:14px">送信前に <a href="privacy.html" style="color:var(--green)">プライバシーポリシー</a> をご確認ください。</p>
       <p style="font-size:12px;color:var(--light)">フォームが使えない場合は <a href="mailto:info@sawada3.com?subject=【メシコレ】お問い合わせ" style="color:var(--green)">info@sawada3.com</a> まで直接メールください。</p>
@@ -55,8 +60,6 @@
     <div class="foot">
       <a class="brand" href="index.html"><img src="assets/logo.png" alt="メシコレ" style="height:30px;filter:brightness(0) invert(1)"></a>
       <nav class="foot-links">
-        <a href="index.html#features">機能紹介</a>
-        <a href="index.html#howto">使い方</a>
         <a href="index.html#faq">よくある質問</a>
         <a href="contact.html">お問い合わせ</a>
         <a href="terms.html">利用規約</a>
