@@ -13,7 +13,9 @@
   body { margin:0; min-height:100vh; background:var(--bg); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
     display:flex; align-items:flex-start; justify-content:center; padding:32px 16px 64px; }
-  .wrap { width:100%; max-width:560px; }
+  .wrap { width:100%; max-width:1080px; }
+  /* ログイン画面だけは広げすぎない（1カラムの短いフォームのため） */
+  #gate { max-width:460px; margin:0 auto; }
   h1 { font-size:20px; margin:8px 0 24px; display:flex; align-items:center; gap:8px; }
   h1 .dot { width:10px; height:10px; border-radius:50%; background:var(--green); }
   .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px 20px; text-align:center; }
@@ -24,7 +26,7 @@
   button.g:hover { background:#f8f9fa; }
   button.g:disabled { opacity:.5; cursor:default; }
   .err { color:#c0392b; font-size:13px; margin-top:14px; min-height:18px; line-height:1.6; }
-  .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:12px; }
   .tile { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; }
   .tile.big { grid-column:1 / -1; text-align:center; padding:24px; }
   .tile.wide { grid-column:1 / -1; }
@@ -40,8 +42,10 @@
   .hidden { display:none; }
   .sec { font-size:15px; margin:28px 0 6px; }
   .note { font-size:12px; color:var(--sub); margin:0 0 10px; line-height:1.7; }
-  .tablewrap { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:auto; max-height:420px; }
-  table { width:100%; border-collapse:collapse; font-size:13px; }
+  .tablewrap { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:auto; max-height:60vh; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  /* 数字は等幅にして桁を揃える（記録数の比較がしやすい） */
+  td.num { font-variant-numeric:tabular-nums; font-weight:700; font-size:15px; }
   th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap; }
   th { position:sticky; top:0; background:var(--card); color:var(--sub); font-size:11px; }
   tr:last-child td { border-bottom:none; }
