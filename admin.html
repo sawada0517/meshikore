@@ -179,7 +179,9 @@
 
   function renderAi(d) {
     const cost = d.ai_cost_30d;
-    document.getElementById("ai_cost_30d").textContent = (cost == null) ? "–" : "$" + Number(cost).toFixed(2);
+    // 少額のうちは桁を多く（$0.00 に潰れないように）
+    const usd = (v) => "$" + (Math.abs(Number(v)) < 0.01 ? Number(v).toFixed(4) : Number(v).toFixed(2));
+    document.getElementById("ai_cost_30d").textContent = (cost == null) ? "–" : usd(cost);
     const tb = document.getElementById("airows");
     const rows = d.ai;
     if (!Array.isArray(rows) || rows.length === 0) {
@@ -192,7 +194,7 @@
         + `<td class="num">${fmt(Number(r.calls))}</td>`
         + `<td class="num">${fmt(Number(r.prompt_tokens))}</td>`
         + `<td class="num">${fmt(Number(r.completion_tokens))}</td>`
-        + `<td class="num">$${Number(r.cost_usd).toFixed(3)}</td>`
+        + `<td class="num">${usd(r.cost_usd)}</td>`
         + `<td class="num">$${Number(r.cost_per_call).toFixed(5)}</td>`
         + `<td class="num">${fmt(Number(r.users))}</td></tr>`;
     }).join("");
