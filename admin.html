@@ -154,6 +154,8 @@
       const dt = new Date(d[k]);
       el.innerHTML = dt.toLocaleString("ja-JP") + '<span class="ago">' + ago(dt) + "</span>";
     });
+    // 記録の入口（どのボタンから記録画面に入ったか）
+    renderEntries(d.entries);
     // ユーザーごとの最終記録。30日以上記録が無い人は赤字にして離脱を見つけやすくする。
     const tbody = document.getElementById("userrows");
     tbody.innerHTML = "";
