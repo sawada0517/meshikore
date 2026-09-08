@@ -171,7 +171,10 @@
         '<td>' + (u.signed_up_at ? new Date(u.signed_up_at).toLocaleDateString("ja-JP") : "–") + '</td>';
       tbody.appendChild(tr);
     });
-    document.getElementById("who").textContent = session.user.email || "";
+    // 除外中のテスト系アカウント数を明示（「実ユーザーだけの数字」だと分かるように）
+    const ex = d.excluded_count ?? 0;
+    document.getElementById("who").textContent =
+      (session.user.email || "") + (ex ? "　｜　テスト系 " + ex + " 件を集計から除外中" : "");
     const t = d.generated_at ? new Date(d.generated_at) : new Date();
     document.getElementById("generated_at").textContent = "更新: " + t.toLocaleString("ja-JP");
     gate.classList.add("hidden");
