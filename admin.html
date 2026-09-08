@@ -77,10 +77,10 @@
       <div class="tile"><div class="k">記録数（7日・件）</div><div class="v" id="meals_7d">–</div></div>
     </div>
     <h2 class="sec">ユーザーごとの最終記録</h2>
-    <p class="note">「記録した人数」は実人数です（起動数ではありません）。アプリを開いただけの人は含まれません。</p>
+    <p class="note">「記録した人数」は実人数です（起動数ではありません）。アプリを開いただけの人は含まれません。<br>「1日あたり」は<strong>記録した日</strong>で割った平均です（1日3食記録していれば 3.0 に近づきます）。30日以上記録が無い人は赤字。</p>
     <div class="tablewrap">
       <table id="usertable">
-        <thead><tr><th>ユーザー</th><th class="num">記録数</th><th>最終記録</th><th>登録日</th></tr></thead>
+        <thead><tr><th>メールアドレス</th><th class="num">記録数</th><th class="num">記録日数</th><th class="num">1日あたり</th><th>最終記録</th><th>登録日</th></tr></thead>
         <tbody id="userrows"></tbody>
       </table>
     </div>
@@ -158,8 +158,10 @@
       const stale = last ? (Date.now() - last.getTime()) > 30 * 864e5 : true;
       const tr = document.createElement("tr");
       tr.innerHTML =
-        '<td>' + esc(u.name) + '<span class="uid">' + esc(u.id) + '</span></td>' +
+        '<td>' + esc(u.email) + (u.name ? '<span class="uid">' + esc(u.name) + '</span>' : '') + '</td>' +
         '<td class="num">' + (u.meal_count ?? 0) + '</td>' +
+        '<td class="num">' + (u.active_days ?? 0) + '</td>' +
+        '<td class="num">' + (u.per_day != null ? Number(u.per_day).toFixed(1) : '–') + '</td>' +
         '<td' + (stale ? ' class="stale"' : '') + '>' +
           (last ? last.toLocaleDateString("ja-JP") + " (" + ago(last) + ")" : "記録なし") + '</td>' +
         '<td>' + (u.signed_up_at ? new Date(u.signed_up_at).toLocaleDateString("ja-JP") : "–") + '</td>';
