@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>メシコレ 管理</title>
+<link rel="icon" href="assets/favicon.png">
+<style>
+  :root { --green:#7DA55A; --green-d:#5f8442; --bg:#FEF8F2; --card:#FFFFFF;
+          --ink:#2F312B; --sub:#8a8f82; --line:#e7e3da; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    display:flex; align-items:flex-start; justify-content:center; padding:32px 16px 64px; }
+  .wrap { width:100%; max-width:560px; }
+  h1 { font-size:20px; margin:8px 0 24px; display:flex; align-items:center; gap:8px; }
+  h1 .dot { width:10px; height:10px; border-radius:50%; background:var(--green); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px 20px; text-align:center; }
+  .lead { font-size:14px; color:var(--sub); margin:0 0 20px; line-height:1.7; }
+  button.g { display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    width:100%; padding:14px; font-size:15px; font-weight:700; color:#3c4043;
+    background:#fff; border:1px solid #dadce0; border-radius:10px; cursor:pointer; }
+  button.g:hover { background:#f8f9fa; }
+  button.g:disabled { opacity:.5; cursor:default; }
+  .err { color:#c0392b; font-size:13px; margin-top:14px; min-height:18px; line-height:1.6; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .tile { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .tile.big { grid-column:1 / -1; text-align:center; padding:24px; }
+  .tile.wide { grid-column:1 / -1; }
+  .tile .k { font-size:12px; color:var(--sub); font-weight:700; }
+  .tile .v { font-size:26px; font-weight:900; margin-top:4px; letter-spacing:-.02em; }
+  .tile.big .v { font-size:52px; color:var(--green-d); }
+  .tile .v.ts { font-size:19px; letter-spacing:0; }
+  .tile .v.ts .ago { font-size:13px; color:var(--sub); font-weight:700; margin-left:8px; }
+  .row { display:flex; justify-content:space-between; align-items:center; margin-top:16px; }
+  .meta { color:var(--sub); font-size:12px; }
+  .link { color:var(--sub); font-size:13px; text-decoration:underline; cursor:pointer;
+    background:none; border:none; padding:0; }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span class="dot"></span> メシコレ 管理</h1>
+
+  <div id="gate" class="card">
+    <p class="lead">管理者のみが閲覧できます。<br>Google アカウントでログインしてください。</p>
+    <button class="g" id="login">
+      <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2 0 24 0 14.6 0 6.4 5.4 2.4 13.3l7.8 6.1C12.1 13.2 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.2-.4-4.6H24v9.1h12.4c-.5 2.9-2.2 5.3-4.6 7l7.6 5.9c4.4-4.1 6.7-10.1 6.7-17.4z"/><path fill="#FBBC05" d="M10.2 28.6c-.5-1.4-.7-2.9-.7-4.6s.3-3.2.7-4.6l-7.8-6.1C.9 16.5 0 20.1 0 24s.9 7.5 2.4 10.7l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.8 2.3-8.3 2.3-6.4 0-11.9-3.7-13.8-9.9l-7.8 6.1C6.4 42.6 14.6 48 24 48z"/></svg>
+      Google でログイン
+    </button>
+    <div id="err" class="err"></div>
+  </div>
+
+  <div id="stats" class="hidden">
+    <div class="grid">
+      <div class="tile big"><div class="k">総利用者数</div><div class="v" id="total_users">–</div></div>
+      <div class="tile wide"><div class="k">最後の登録</div><div class="v ts" id="last_signup_at">–</div></div>
+      <div class="tile wide"><div class="k">最後の記録</div><div class="v ts" id="last_meal_at">–</div></div>
+      <div class="tile"><div class="k">新規（今日）</div><div class="v" id="new_1d">–</div></div>
+      <div class="tile"><div class="k">新規（7日）</div><div class="v" id="new_7d">–</div></div>
+      <div class="tile"><div class="k">新規（30日）</div><div class="v" id="new_30d">–</div></div>
+      <div class="tile"><div class="k">アクティブ（7日）</div><div class="v" id="active_7d">–</div></div>
+      <div class="tile"><div class="k">アクティブ（30日）</div><div class="v" id="active_30d">–</div></div>
+      <div class="tile"><div class="k">総記録数</div><div class="v" id="total_meals">–</div></div>
+      <div class="tile"><div class="k">記録数（7日）</div><div class="v" id="meals_7d">–</div></div>
+    </div>
+    <div class="row">
+      <span class="meta" id="who"></span>
+      <button class="link" id="logout">ログアウト</button>
+    </div>
+    <div class="meta" id="generated_at" style="text-align:center;margin-top:8px"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
+
+  // anon キーは公開前提（モバイルアプリにも入っている）。実際のゲートは
+  // Edge Function 側の「JWT検証＋メール許可リスト」。ここに秘密は置かない。
+  const SUPABASE_URL = "https://vntmfceejuigtoaykfcb.supabase.co";
+  const ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZudG1mY2VlanVpZ3RvYXlrZmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4MzA1OTksImV4cCI6MjA5NjQwNjU5OX0.4sjjfVqtjhr5iMASZC4Z1LTLNl4_QhiShyWDC3y2DkY";
+  const sb = createClient(SUPABASE_URL, ANON);
+
+  const KEYS = ["total_users","new_1d","new_7d","new_30d","active_7d","active_30d","total_meals","meals_7d"];
+  const TIME_KEYS = ["last_signup_at","last_meal_at"];
+  const gate = document.getElementById("gate");
+  const stats = document.getElementById("stats");
+  const err = document.getElementById("err");
+  const loginBtn = document.getElementById("login");
+
+  const fmt = (n) => (typeof n === "number") ? n.toLocaleString("ja-JP") : "–";
+  // 「3時間前」の相対表示。登録が止まっていないか一目で分かるように。
+  function ago(dt) {
+    const m = Math.floor((Date.now() - dt.getTime()) / 60000);
+    if (m < 1) return "たった今";
+    if (m < 60) return m + "分前";
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + "時間前";
+    return Math.floor(h / 24) + "日前";
+  }
+
+  async function load() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return; // 未ログイン＝ログイン画面のまま
+
+    err.textContent = "";
+    const res = await fetch(SUPABASE_URL + "/functions/v1/admin-stats", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + session.access_token },
+      body: "{}",
+    });
+
+    if (res.status === 403) {
+      // ログインはできたが許可されていないアカウント
+      err.textContent = "このアカウント（" + (session.user.email || "") + "）には閲覧権限がありません。";
+      await sb.auth.signOut();
+      return;
+    }
+    if (!res.ok) { err.textContent = "取得に失敗しました (" + res.status + ")"; return; }
+
+    const d = await res.json();
+    KEYS.forEach((k) => { document.getElementById(k).textContent = fmt(d[k]); });
+    TIME_KEYS.forEach((k) => {
+      const el = document.getElementById(k);
+      if (!d[k]) { el.textContent = "まだありません"; return; }
+      const dt = new Date(d[k]);
+      el.innerHTML = dt.toLocaleString("ja-JP") + '<span class="ago">' + ago(dt) + "</span>";
+    });
+    document.getElementById("who").textContent = session.user.email || "";
+    const t = d.generated_at ? new Date(d.generated_at) : new Date();
+    document.getElementById("generated_at").textContent = "更新: " + t.toLocaleString("ja-JP");
+    gate.classList.add("hidden");
+    stats.classList.remove("hidden");
+  }
+
+  loginBtn.addEventListener("click", async () => {
+    loginBtn.disabled = true;
+    err.textContent = "";
+    // 戻り先はこのページ自身（?code= を受けてセッション確立される）
+    const { error } = await sb.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin + window.location.pathname },
+    });
+    if (error) { err.textContent = "ログインを開始できませんでした: " + error.message; loginBtn.disabled = false; }
+  });
+
+  document.getElementById("logout").addEventListener("click", async () => {
+    await sb.auth.signOut();
+    stats.classList.add("hidden");
+    gate.classList.remove("hidden");
+    loginBtn.disabled = false;
+  });
+
+  // OAuth から戻った直後もここで拾う（detectSessionInUrl が既定で有効）
+  sb.auth.onAuthStateChange(() => { load(); });
+  load();
+</script>
+</body>
+</html>
