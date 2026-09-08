@@ -38,6 +38,16 @@
   .link { color:var(--sub); font-size:13px; text-decoration:underline; cursor:pointer;
     background:none; border:none; padding:0; }
   .hidden { display:none; }
+  .sec { font-size:15px; margin:28px 0 6px; }
+  .note { font-size:12px; color:var(--sub); margin:0 0 10px; line-height:1.7; }
+  .tablewrap { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:auto; max-height:420px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th { position:sticky; top:0; background:var(--card); color:var(--sub); font-size:11px; }
+  tr:last-child td { border-bottom:none; }
+  td.num, th.num { text-align:right; }
+  .stale { color:#c0392b; }
+  .uid { color:var(--sub); font-size:11px; margin-left:6px; }
 </style>
 </head>
 <body>
@@ -55,17 +65,26 @@
 
   <div id="stats" class="hidden">
     <div class="grid">
-      <div class="tile big"><div class="k">総利用者数</div><div class="v" id="total_users">–</div></div>
+      <div class="tile big"><div class="k">総利用者数（人）</div><div class="v" id="total_users">–</div></div>
       <div class="tile wide"><div class="k">最後の登録</div><div class="v ts" id="last_signup_at">–</div></div>
       <div class="tile wide"><div class="k">最後の記録</div><div class="v ts" id="last_meal_at">–</div></div>
       <div class="tile"><div class="k">新規（今日）</div><div class="v" id="new_1d">–</div></div>
       <div class="tile"><div class="k">新規（7日）</div><div class="v" id="new_7d">–</div></div>
       <div class="tile"><div class="k">新規（30日）</div><div class="v" id="new_30d">–</div></div>
-      <div class="tile"><div class="k">アクティブ（7日）</div><div class="v" id="active_7d">–</div></div>
-      <div class="tile"><div class="k">アクティブ（30日）</div><div class="v" id="active_30d">–</div></div>
-      <div class="tile"><div class="k">総記録数</div><div class="v" id="total_meals">–</div></div>
-      <div class="tile"><div class="k">記録数（7日）</div><div class="v" id="meals_7d">–</div></div>
+      <div class="tile"><div class="k">記録した人数（7日）</div><div class="v" id="active_7d">–</div></div>
+      <div class="tile"><div class="k">記録した人数（30日）</div><div class="v" id="active_30d">–</div></div>
+      <div class="tile"><div class="k">総記録数（件）</div><div class="v" id="total_meals">–</div></div>
+      <div class="tile"><div class="k">記録数（7日・件）</div><div class="v" id="meals_7d">–</div></div>
     </div>
+    <h2 class="sec">ユーザーごとの最終記録</h2>
+    <p class="note">「記録した人数」は実人数です（起動数ではありません）。アプリを開いただけの人は含まれません。</p>
+    <div class="tablewrap">
+      <table id="usertable">
+        <thead><tr><th>ユーザー</th><th class="num">記録数</th><th>最終記録</th><th>登録日</th></tr></thead>
+        <tbody id="userrows"></tbody>
+      </table>
+    </div>
+
     <div class="row">
       <span class="meta" id="who"></span>
       <button class="link" id="logout">ログアウト</button>
@@ -90,6 +109,9 @@
   const err = document.getElementById("err");
   const loginBtn = document.getElementById("login");
 
+  // 表示名はユーザーが入力した値。innerHTML に入れるので必ずエスケープする。
+  const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
   const fmt = (n) => (typeof n === "number") ? n.toLocaleString("ja-JP") : "–";
   // 「3時間前」の相対表示。登録が止まっていないか一目で分かるように。
   function ago(dt) {
@@ -127,6 +149,21 @@
       if (!d[k]) { el.textContent = "まだありません"; return; }
       const dt = new Date(d[k]);
       el.innerHTML = dt.toLocaleString("ja-JP") + '<span class="ago">' + ago(dt) + "</span>";
+    });
+    // ユーザーごとの最終記録。30日以上記録が無い人は赤字にして離脱を見つけやすくする。
+    const tbody = document.getElementById("userrows");
+    tbody.innerHTML = "";
+    (d.users || []).forEach((u) => {
+      const last = u.last_meal_at ? new Date(u.last_meal_at) : null;
+      const stale = last ? (Date.now() - last.getTime()) > 30 * 864e5 : true;
+      const tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td>' + esc(u.name) + '<span class="uid">' + esc(u.id) + '</span></td>' +
+        '<td class="num">' + (u.meal_count ?? 0) + '</td>' +
+        '<td' + (stale ? ' class="stale"' : '') + '>' +
+          (last ? last.toLocaleDateString("ja-JP") + " (" + ago(last) + ")" : "記録なし") + '</td>' +
+        '<td>' + (u.signed_up_at ? new Date(u.signed_up_at).toLocaleDateString("ja-JP") : "–") + '</td>';
+      tbody.appendChild(tr);
     });
     document.getElementById("who").textContent = session.user.email || "";
     const t = d.generated_at ? new Date(d.generated_at) : new Date();
