@@ -47,7 +47,7 @@
     <nav class="top-nav" aria-label="ページ内">
       <a class="navlink" href="#day">使い方</a>
       <a class="navlink" href="#faq">よくある質問</a>
-      <a class="top-cta" href="#start">無料ではじめる</a>
+      <a class="top-cta" href="#start" data-store>無料ではじめる</a>
     </nav>
   </div>
 </header>
@@ -269,7 +269,7 @@
 </footer>
 
 <!-- スクロールに合わせて、めし丸がおうちまで走る。点は朝・昼・おやつ・夕・夜・次の日。走るところは飾りなので読み上げない。
-     着いたらアプリへのボタンを出す。iPhone は App Store、Android は Google Play を「無料ではじめる」1つで直接開く。
+     着いたらアプリへのボタンを出す。iPhone・Android は「無料ではじめる」1つで、その端末のストアを直接開く（いちばん下のスクリプト）。
      パソコンなど（幅があるとき）は App Store と Google Play を2つ並べる。狭いときは「無料ではじめる」でページ下のストアのボタンへ -->
 <div class="runner" id="runner">
   <div class="runner-in">
@@ -280,7 +280,7 @@
     </div>
     <img class="runner-home" src="assets/v2/chara/house.webp" alt="" width="120" height="120" aria-hidden="true">
     <div class="runner-go">
-      <a class="runner-btn go-start" href="#start">無料ではじめる</a>
+      <a class="runner-btn go-start" href="#start" data-store>無料ではじめる</a>
       <a class="runner-btn go-store" href="https://apps.apple.com/jp/app/id6777846217" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-apple"/></svg>App Store</a>
       <a class="runner-btn go-store" href="https://play.google.com/store/apps/details?id=com.sawada3.meshikore" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-play"/></svg>Google Play</a>
     </div>
@@ -288,6 +288,19 @@
 </div>
 
 <script>
+/* 「無料ではじめる」（上の帯と、いちばん下のめし丸。data-store の付いたリンク）は、端末に合わせてストアを直接開く。
+   iPhone・iPad は App Store、Android は Google Play。それ以外（パソコンなど）は、そのままページ下の App Store と Google Play のボタンへ。
+   ストアの URL は、ページ下のボタンと同じものを使う */
+(function(){
+  var ua=navigator.userAgent, ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),
+      store=ios?document.querySelector('.final .store[href*="apple.com"]'):/Android/.test(ua)?document.querySelector('.final .store[href*="play.google.com"]'):null;
+  if(!store) return;
+  document.documentElement.classList.add('to-store');
+  [].forEach.call(document.querySelectorAll('a[data-store]'), function(a){
+    a.href=store.href; a.target='_blank'; a.rel='noopener'; a.setAttribute('aria-label',(ios?'App Store':'Google Play')+'で無料ではじめる');
+  });
+})();
+
 /* いちばん上の見本：ひとこと書く → 品に分かれてカロリーが出る、をくり返す。
    HTML には書き終えた状態を置いておく（スクリプトが動かない・動きを減らす設定の人には、その状態のまま見せる） */
 (function(){
@@ -315,13 +328,6 @@
   var root=document.getElementById('runner'); if(!root) return;
   var laneEl=root.querySelector('.runner-lane'), me=root.querySelector('.runner-me'), img=root.querySelector('.runner-img'),
       say=root.querySelector('.runner-say'), fill=root.querySelector('.runner-fill'), box=root.querySelector('.runner-marks');
-  // 着いたあとのボタン：スマホは、その端末のストアを「無料ではじめる」1つで開く。それ以外は2つ並べる（CSS の .is-desk）
-  var ua=navigator.userAgent, ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),
-      store=root.querySelector(ios?'.go-store[href*="apple.com"]':/Android/.test(ua)?'.go-store[href*="play.google.com"]':'.none');
-  if(store){
-    var go=root.querySelector('.go-start');
-    go.href=store.href; go.target='_blank'; go.rel='noopener'; go.setAttribute('aria-label',(ios?'App Store':'Google Play')+'で無料ではじめる');
-  } else root.classList.add('is-desk');
   var secs=[].slice.call(document.querySelectorAll('.slot-morning,.slot-noon,.slot-snack,.slot-evening,.night,.slot-next'));
   var marks=secs.map(function(){ var i=document.createElement('i'); box.appendChild(i); return {el:i,p:0}; });
   var RUN='assets/v2/chara/run.webp', GOAL='assets/v2/chara/run-goal.webp';
