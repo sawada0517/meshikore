@@ -268,15 +268,22 @@
   </div>
 </footer>
 
-<!-- スクロールに合わせて、めし丸がおうちまで走る（飾りなので読み上げない）。点は朝・昼・おやつ・夕・夜・次の日 -->
-<div class="runner" id="runner" aria-hidden="true">
+<!-- スクロールに合わせて、めし丸がおうちまで走る。点は朝・昼・おやつ・夕・夜・次の日。走るところは飾りなので読み上げない。
+     着いたらアプリへのボタンを出す。iPhone は App Store、Android は Google Play を「無料ではじめる」1つで直接開く。
+     パソコンなど（幅があるとき）は App Store と Google Play を2つ並べる。狭いときは「無料ではじめる」でページ下のストアのボタンへ -->
+<div class="runner" id="runner">
   <div class="runner-in">
-    <p class="runner-say">あと<b>100</b>%</p>
-    <div class="runner-lane">
+    <p class="runner-say" aria-hidden="true">あと<b>100</b>%</p>
+    <div class="runner-lane" aria-hidden="true">
       <div class="runner-track"><i class="runner-fill"></i><span class="runner-marks"></span></div>
-      <div class="runner-me"><img class="runner-img" src="assets/v2/chara/run.webp" alt="" width="144" height="144"></div>
+      <div class="runner-me"><span class="runner-yay">ついた！</span><img class="runner-img" src="assets/v2/chara/run.webp" alt="" width="144" height="144"></div>
     </div>
-    <img class="runner-home" src="assets/v2/chara/house.webp" alt="" width="120" height="120">
+    <img class="runner-home" src="assets/v2/chara/house.webp" alt="" width="120" height="120" aria-hidden="true">
+    <div class="runner-go">
+      <a class="runner-btn go-start" href="#start">無料ではじめる</a>
+      <a class="runner-btn go-store" href="https://apps.apple.com/jp/app/id6777846217" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-apple"/></svg>App Store</a>
+      <a class="runner-btn go-store" href="https://play.google.com/store/apps/details?id=com.sawada3.meshikore" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-play"/></svg>Google Play</a>
+    </div>
   </div>
 </div>
 
@@ -303,11 +310,18 @@
 })();
 
 /* いちばん下のめし丸：読んだところまで走り、おうちまで「あと◯%」を見せる。
-   スクロールしている間だけ跳ねて、止まると立ち止まる。上へ戻ると向きを変える。着いたら「ついた！」 */
+   スクロールしている間だけ跳ねて、止まると立ち止まる。上へ戻ると向きを変える。着いたら「ついた！」と「無料ではじめる」 */
 (function(){
   var root=document.getElementById('runner'); if(!root) return;
   var laneEl=root.querySelector('.runner-lane'), me=root.querySelector('.runner-me'), img=root.querySelector('.runner-img'),
       say=root.querySelector('.runner-say'), fill=root.querySelector('.runner-fill'), box=root.querySelector('.runner-marks');
+  // 着いたあとのボタン：スマホは、その端末のストアを「無料ではじめる」1つで開く。それ以外は2つ並べる（CSS の .is-desk）
+  var ua=navigator.userAgent, ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),
+      store=root.querySelector(ios?'.go-store[href*="apple.com"]':/Android/.test(ua)?'.go-store[href*="play.google.com"]':'.none');
+  if(store){
+    var go=root.querySelector('.go-start');
+    go.href=store.href; go.target='_blank'; go.rel='noopener'; go.setAttribute('aria-label',(ios?'App Store':'Google Play')+'で無料ではじめる');
+  } else root.classList.add('is-desk');
   var secs=[].slice.call(document.querySelectorAll('.slot-morning,.slot-noon,.slot-snack,.slot-evening,.night,.slot-next'));
   var marks=secs.map(function(){ var i=document.createElement('i'); box.appendChild(i); return {el:i,p:0}; });
   var RUN='assets/v2/chara/run.webp', GOAL='assets/v2/chara/run-goal.webp';
@@ -330,8 +344,10 @@
     me.style.transform='translateX('+x+'px)';
     fill.style.width=(x+mw/2)+'px';
     marks.forEach(function(m){ m.el.classList.toggle('is-past', p>=m.p); });
-    var text=goal?'ついた！':String(Math.max(1,Math.round((1-p)*100)));
-    if(text!==shown){ shown=text; say.innerHTML=goal?'<b>ついた！</b>':'あと<b>'+text+'</b>%'; img.src=goal?GOAL:RUN; }
+    var text=String(Math.max(1,Math.round((1-p)*100)));
+    if(!goal&&text!==shown){ shown=text; say.innerHTML='あと<b>'+text+'</b>%'; }
+    // 着いたら「あと◯%」と線を消して、左にアプリへのボタン、めし丸の頭の上に「ついた！」
+    if(goal!==root.classList.contains('is-goal')){ root.classList.toggle('is-goal', goal); img.src=goal?GOAL:RUN; }
     root.classList.toggle('is-on', y>60);
   }
   function onScroll(){
