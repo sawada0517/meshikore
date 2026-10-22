@@ -2,181 +2,294 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>メシコレ｜毎日の食事を記録して、自分に合った食生活へ｜食事記録・栄養バランスアプリ</title>
-<meta name="description" content="メシコレは毎日の食事を記録して、栄養バランスをスコアで可視化。不足している栄養や次に食べるものまでやさしくアドバイスし、自分に合った食生活づくりをサポートする無料の食事記録アプリです。">
-<meta name="keywords" content="メシコレ,食事記録,栄養バランス,カロリー,食事管理,ダイエット,健康,栄養スコア,アプリ">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>メシコレ｜食べたものを、ひとことで。AIがカロリーを見積もる食事記録アプリ</title>
+<meta name="description" content="メシコレは、食べたものを「鮭おにぎり、サラダ」とひとこと書くか、写真を1枚撮るだけの食事記録アプリ。カロリーと栄養はAIのめし丸がだいたい見積もります。量はだいたいでOK。食べすぎた日も責めず、続けるほど自分に合った食生活が見えてきます。">
+<meta name="keywords" content="メシコレ,食事記録,カロリー,AI,栄養バランス,食事管理,ダイエット,アプリ">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#7DA55A">
+<meta name="theme-color" content="#F7F8F2">
 <link rel="canonical" href="https://meshikore.com/">
 <meta property="og:site_name" content="メシコレ">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="メシコレ｜毎日の食事を記録して、自分に合った食生活へ">
-<meta property="og:description" content="食事の記録から、栄養バランスや次に食べるものまでアドバイス。スコアでわかりやすく食生活をサポートする無料アプリ。">
+<meta property="og:title" content="メシコレ｜食べたものを、ひとことで。">
+<meta property="og:description" content="ひとこと書くか、写真を1枚撮るだけ。カロリーと栄養はAIのめし丸がだいたい見積もる、責めない食事記録アプリ。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://meshikore.com/">
 <meta property="og:image" content="https://meshikore.com/assets/pc-mv.png">
-<meta property="og:image:width" content="1536">
-<meta property="og:image:height" content="1024">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="メシコレ｜毎日の食事を記録して、自分に合った食生活へ">
-<meta name="twitter:description" content="食事の記録から、栄養バランスや次に食べるものまでアドバイス。スコアでわかりやすく食生活をサポートする無料アプリ。">
+<meta name="twitter:title" content="メシコレ｜食べたものを、ひとことで。">
+<meta name="twitter:description" content="ひとこと書くか、写真を1枚撮るだけ。カロリーと栄養はAIのめし丸がだいたい見積もる、責めない食事記録アプリ。">
 <meta name="twitter:image" content="https://meshikore.com/assets/pc-mv.png">
 <link rel="icon" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="home.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"メシコレ","operatingSystem":"iOS, Android","applicationCategory":"HealthApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},"url":"https://meshikore.com/"}
+</script>
 </head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="/"><img src="assets/logo.png" alt="メシコレ"></a>
-    <nav class="menu">
-      <a href="#features">機能紹介</a>
-      <a href="#howto">使い方</a>
-      <a href="#faq">よくある質問</a>
-      <a class="btn btn-primary" href="https://apps.apple.com/jp/app/id6777846217" target="_blank" rel="noopener">今すぐ始める</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.59 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.05 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.33-3.52ZM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.64-1.05 1.68-.92 2.67.97.07 1.96-.49 2.56-1.22Z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M4.6 2.9c-.2.2-.3.5-.3.9v16.4c0 .4.1.7.3.9l.1.1 9.2-9.2v-.2L4.7 2.8l-.1.1Zm12.4 12.2-3.1-3.1v-.2l3.1-3.1.1.1 3.6 2.1c1 .6 1 1.6 0 2.2l-3.6 2.1-.1-.1Zm-.1.1-3.1-3.1-9.2 9.2c.3.4.9.4 1.5.1l10.8-6.2Zm0-6.4L6.1 2.6c-.6-.4-1.2-.3-1.5.1l9.2 9.2 3.1-3.1Z"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/" aria-label="メシコレ トップ"><img src="assets/v2/logo.png" alt="メシコレ" width="99" height="32"></a>
+    <nav class="top-nav" aria-label="ページ内">
+      <a class="navlink" href="#how">使い方</a>
+      <a class="navlink" href="#record">記録のしかた</a>
+      <a class="navlink" href="#plans">料金</a>
+      <a class="navlink" href="#faq">よくある質問</a>
+      <a class="top-cta" href="#start">無料ではじめる</a>
     </nav>
   </div>
 </header>
 
-<a class="mobile-cta" href="https://apps.apple.com/jp/app/id6777846217" target="_blank" rel="noopener">今すぐ始める</a>
-
-<!-- HERO -->
-<section class="hero2" id="download">
-  <div class="wrap">
-    <img class="pc-mv" src="assets/pc-mv.png" alt="メシコレ｜毎日の食事を記録して、自分に合った食生活へ。栄養バランスをスコアで可視化し、不足している栄養や次に食べるものをやさしくアドバイスする食事記録アプリ">
-    <img class="sp-mv" src="assets/sp-mv.png" alt="メシコレ｜毎日の食事を記録して、自分に合った食生活へ。栄養バランスをスコアで可視化し、不足している栄養や次に食べるものをやさしくアドバイスする食事記録アプリ">
-    <span class="tagpill">食事のバランスを、わかりやすくサポート</span>
-    <div class="hero2-top">
-      <div class="hero2-copy">
-        <h1><span class="h1-l1">毎日の食事を記録して、</span><br><span class="big"><span class="g">自分に合った</span><span class="o">食生活</span>へ。</span></h1>
-        <p class="hero2-lead">食事の記録から、栄養バランスや<br>次に食べるものまでアドバイスしてくれるアプリ</p>
+<main>
+<!-- ヒーロー：何のアプリかを1文で -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><i aria-hidden="true"></i>AI のめし丸が見積もる食事記録</span>
+      <h1 id="hero-title">食べたものを、<em>ひとこと</em>で。<br>あとはめし丸に<br>おまかせ。</h1>
+      <p class="lead">「鮭おにぎり、サラダ」と書くか、写真を1枚撮るだけ。<b>カロリーと栄養は AI がだいたい出します。</b>量は「だいたい」で大丈夫。続けるほど、自分に合った食べ方が見えてきます。</p>
+      <div class="stores">
+        <a class="store" href="https://apps.apple.com/jp/app/id6777846217" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small>ダウンロード</small><b>App Store</b></span></a>
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.sawada3.meshikore" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small>手に入れよう</small><b>Google Play</b></span></a>
       </div>
-      <div class="hero2-mascot">
-        <span class="greet">あなたの食生活を<br>一緒に<b>整えて</b>いくよ！</span>
-        <img src="assets/mascot-hero.png" alt="メシコレのキャラクター めし丸">
-      </div>
+      <p class="note">無料ではじめられます ・ iPhone / Android</p>
     </div>
-    <div class="pills">
-      <div class="pill">
-        <span class="pill-ic"><img src="assets/pill-score.png" alt=""></span>
-        <p>栄養バランスを<br>スコアで可視化</p>
+    <div class="hero-art" aria-hidden="true">
+      <div class="phone"><img src="assets/v2/screens/home.webp" alt="" width="598" height="1300"></div>
+      <img class="meal float slow" src="assets/v2/web/hero-meal.webp" alt="" width="720" height="720">
+      <img class="chara float" src="assets/v2/chara/meal-hero.webp" alt="" width="600" height="685">
+      <p class="bubble">今日のお昼、なに食べた？<small>めし丸</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- 使い方：3ステップ -->
+<section class="band" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">使い方</span>
+      <h2 id="how-title">記録は、3ステップだけ</h2>
+      <p>はじめの設定は、目的をひとつ選ぶだけ。すぐに記録できます。</p>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <img src="assets/v2/web/snap.webp" alt="" width="720" height="720" loading="lazy">
+        <span class="num" aria-hidden="true"></span>
+        <h3>書く・撮る</h3>
+        <p>食べたものの名前をひとこと書くか、写真を1枚撮ります。</p>
+      </li>
+      <li class="step">
+        <img src="assets/v2/web/gauge.webp" alt="" width="720" height="720" loading="lazy">
+        <span class="num" aria-hidden="true"></span>
+        <h3>めし丸が見積もる</h3>
+        <p>カロリーと栄養を AI がだいたい出して、今日の目安とくらべます。</p>
+      </li>
+      <li class="step">
+        <img src="assets/v2/web/calendar.webp" alt="" width="720" height="720" loading="lazy">
+        <span class="num" aria-hidden="true"></span>
+        <h3>次の一品が分かる</h3>
+        <p>足りない栄養と、次に足すといい一品を、めし丸が教えます。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 記録のしかた -->
+<section id="record" aria-labelledby="record-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">記録のしかた</span>
+      <h2 id="record-title">いちばん楽な書き方で、<br>ちゃんと記録になる</h2>
+    </div>
+    <div class="feature">
+      <div class="f-text">
+        <span class="f-tag">量はだいたいでOK</span>
+        <h3>グラムまで入れなくて大丈夫</h3>
+        <p>辞書にない料理も、名前を入れれば AI がカロリーを見積もります。きちんと量を入れたい日は「材料から記録」もあります。</p>
+        <ul class="points">
+          <li><img src="assets/v2/web/oneline.webp" alt="" width="720" height="720" loading="lazy"><div><b>1行に何品でも</b><span>「トースト、ゆで卵、キウイ」のように「、」で区切ると、まとめて入ります</span></div></li>
+          <li><img src="assets/v2/web/snap.webp" alt="" width="720" height="720" loading="lazy"><div><b>写真を1枚</b><span>料理の写真から、めし丸がカロリーを見積もります</span></div></li>
+          <li><img src="assets/v2/web/label.webp" alt="" width="720" height="720" loading="lazy"><div><b>栄養成分表示を撮る</b><span>パッケージの表示を読み取って、そのまま記録します</span></div></li>
+          <li><img src="assets/v2/web/again.webp" alt="" width="720" height="720" loading="lazy"><div><b>前と同じごはんは1タップ</b><span>よく食べるもの・前と同じ食事は、選ぶだけで入ります</span></div></li>
+        </ul>
       </div>
-      <div class="pill">
-        <span class="pill-ic"><img src="assets/pill-advice.png" alt=""></span>
-        <p>不足している栄養を<br>やさしくアドバイス</p>
-      </div>
-      <div class="pill">
-        <span class="pill-ic"><img src="assets/pill-learn.png" alt=""></span>
-        <p>栄養の知識が<br>自然と身につく</p>
+      <div class="f-art">
+        <div class="phone"><img src="assets/v2/screens/record.webp" alt="記録の画面。トースト・ゆで卵・キウイの3品を選び、「量はだいたいでOK。めし丸が見積もるよ」と出ている" width="598" height="1300" loading="lazy"></div>
+        <img class="deco bl float" src="assets/v2/web/oneline.webp" alt="" width="720" height="720" loading="lazy">
       </div>
     </div>
   </div>
 </section>
 
-<!-- DEVICE MOCKS -->
-<section class="mocks" id="features">
+<!-- 責めない目安 -->
+<section class="band" id="gentle" aria-labelledby="gentle-title">
   <div class="wrap">
-    <div class="mock-track" id="mockTrack">
-      <figure class="mockfig"><span class="mocklabel">今日のスコア</span><img src="assets/mock-score.png" alt="今日のスコア画面"></figure>
-      <figure class="mockfig"><span class="mocklabel">栄養とアクティビティ</span><img src="assets/mock-advice.png" alt="栄養バランスとアクティビティ画面"></figure>
-      <figure class="mockfig"><span class="mocklabel">栄養を学ぶ</span><img src="assets/mock-learn.png" alt="栄養を学ぶ画面"></figure>
-    </div>
-    <div class="dots" id="mockDots" aria-hidden="true">
-      <span class="dot is-on"></span><span class="dot"></span><span class="dot"></span>
-    </div>
-  </div>
-</section>
-
-<!-- 3 STEPS -->
-<section class="howto2" id="howto">
-  <div class="wrap">
-    <h2 class="howto2-title"><span class="leaf">🌿</span> 3ステップで、<br class="sp-br">食生活をサポート！ <span class="leaf">🌿</span></h2>
-    <div class="steps2">
-      <div class="step2">
-        <div class="step2-head"><span class="step2-num">1</span><b>記録する</b></div>
-        <div class="step2-ill"><img src="assets/step-record.png" alt=""></div>
-        <p>食事の内容を記録</p>
+    <div class="feature flip">
+      <div class="f-art">
+        <div class="phone"><img src="assets/v2/screens/home-near.webp" alt="ホームの「今日の食事目安」。目安を少し超えた日は「今日は 目安くらい」と出ている" width="598" height="1300" loading="lazy"></div>
+        <img class="deco br float slow" src="assets/v2/web/gauge.webp" alt="" width="720" height="720" loading="lazy">
       </div>
-      <div class="arrow2">→</div>
-      <div class="step2">
-        <div class="step2-head"><span class="step2-num">2</span><b>バランスを確認</b></div>
-        <div class="step2-ill"><img src="assets/step-balance.png" alt=""></div>
-        <p>栄養バランスを<br>スコアでチェック</p>
-      </div>
-      <div class="arrow2">→</div>
-      <div class="step2">
-        <div class="step2-head"><span class="step2-num">3</span><b>改善のヒントを<br>受け取る</b></div>
-        <div class="step2-ill"><img src="assets/step-improve.png" alt=""></div>
-        <p>不足している栄養や<br>おすすめの食材を提案</p>
+      <div class="f-text">
+        <span class="f-tag">責めない記録</span>
+        <h3 id="gentle-title">食べすぎた日も、<br>責めません</h3>
+        <p>1日の目安は、あなたの体と目的から出します。少し超えた日は「目安くらい」。多めの日も、数字をそっと見せるだけです。体が1日に使う量までの「無理のない幅」も確かめられます。</p>
+        <div class="scale" role="img" aria-label="目安までは「あと何キロカロリー」、目安の110パーセントまでは「目安くらい」、それより多い日は「多めの日」と表示します">
+          <div class="scale-bar"></div>
+          <div class="scale-labels">
+            <div><b>あと ◯kcal</b>目安まで</div>
+            <div><b>目安くらい</b>110%まで</div>
+            <div><b>多めの日</b>それより多い日</div>
+          </div>
+        </div>
+        <div class="quote">
+          <img src="assets/v2/chara/joy.webp" alt="" width="400" height="400" loading="lazy">
+          <p>毎日ぴったりじゃなくて大丈夫。<br>まずは、書くことからはじめよう！</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq" id="faq">
+<!-- 続けられる仕組み -->
+<section id="habit" aria-labelledby="habit-title">
   <div class="wrap">
-    <h2 class="section-title">よくある質問</h2>
-    <div class="faq-list">
-      <div class="faq-item"><div class="faq-q">無料で使えますか？</div><div class="faq-a">はい。無料プランで食事記録、今日のスコア、栄養バランス、AIコメント、週の傾向、直近30日の記録詳細、体重の記録をお使いいただけます。今月7日記録すると、その月の傾向分析と月次レポートも無料で見られます。3ヶ月トレンド、過去月のレポート、全期間の記録詳細、AIのふり返り、体重の推移グラフと週ごとのふり返りは月額のPROプランでご利用いただけます。</div></div>
-      <div class="faq-item"><div class="faq-q">どうやって記録するの？</div><div class="faq-a">メニュー名の検索や材料からの選択、手入力でかんたんに記録できます。見つからない食品はリクエストもでき、順次追加しています。</div></div>
-      <div class="faq-item"><div class="faq-q">PROプランの料金と解約は？</div><div class="faq-a">PROは月額500円（税込）の自動更新サブスクリプションです。解約はいつでも可能で、App Store または Google Play の購読管理から行えます。</div></div>
-      <div class="faq-item"><div class="faq-q">記録は安全に管理されますか？</div><div class="faq-a">記録はアカウントごとに保護して保存されます。詳しくはプライバシーポリシーをご確認ください。</div></div>
+    <div class="sec-head">
+      <span class="kicker">続けられる仕組み</span>
+      <h2 id="habit-title">気づいたら、続いている</h2>
+      <p>がんばりすぎなくていいように。めし丸と、小さな楽しみを用意しています。</p>
+    </div>
+    <div class="cards">
+      <article class="card"><img src="assets/v2/web/bell.webp" alt="" width="720" height="720" loading="lazy"><h3>声をかけてほしい時間に</h3><p>朝・昼・夜から選べます。記録した次の日は、同じころに1回だけ声をかけます。マイページでいつでも止められます。</p></article>
+      <article class="card"><img src="assets/v2/web/gift.webp" alt="" width="720" height="720" loading="lazy"><h3>記録するほど、おうちが育つ</h3><p>記録するとめし丸のおうちが育ちます。続けると、おうちに置けるプレゼントが届きます。</p></article>
+      <article class="card"><img src="assets/v2/web/calendar.webp" alt="" width="720" height="720" loading="lazy"><h3>つけ忘れても、あとから</h3><p>昨日や先週の分も、30日前まであとから記録できます。連続記録は3日あいても途切れません。</p></article>
+      <article class="card"><img src="assets/v2/chara/think.webp" alt="" width="400" height="400" loading="lazy"><h3>めし丸が、ときどき聞く</h3><p>「いまの感じ」をタップで答えると、ミッションやおすすめがあなたに合わせて変わります。</p></article>
+      <article class="card"><img src="assets/v2/web/gauge.webp" alt="" width="720" height="720" loading="lazy"><h3>週と月で、ふり返る</h3><p>栄養バランスの推移や、外食の回数をグラフで。1日のぶれより、流れが見えてきます。</p></article>
+      <article class="card"><img src="assets/v2/chara/cheer.webp" alt="" width="480" height="480" loading="lazy"><h3>続けた日数でランクアップ</h3><p>記録を続けると、ランクが上がります。今月7日記録すると、その月の分析とレポートも見られます。</p></article>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta2">
+<!-- 画面 -->
+<section class="band-mint" id="screens" aria-labelledby="screens-title">
   <div class="wrap">
-    <div class="cta2-box">
-      <p class="cta2-lead">毎日の食事管理を、もっとかんたんに。</p>
-      <a class="btn-cta" href="https://apps.apple.com/jp/app/id6777846217" target="_blank" rel="noopener">今すぐ始める</a>
-      <p class="cta2-note">登録・利用はすべて無料です</p>
+    <div class="sec-head">
+      <span class="kicker">アプリの画面</span>
+      <h2 id="screens-title">やさしい色と、めし丸と</h2>
+    </div>
+    <div class="shots">
+      <figure><div class="phone"><img src="assets/v2/screens/home.webp" alt="ホーム。今日の健康スコア86点と、めし丸のひとこと" width="598" height="1300" loading="lazy"></div><figcaption>今日のスコア</figcaption></figure>
+      <figure><div class="phone"><img src="assets/v2/screens/record.webp" alt="記録の画面" width="598" height="1300" loading="lazy"></div><figcaption>1行で記録</figcaption></figure>
+      <figure><div class="phone"><img src="assets/v2/screens/home-near.webp" alt="今日の食事目安" width="598" height="1300" loading="lazy"></div><figcaption>今日の食事目安</figcaption></figure>
+      <figure><div class="phone"><img src="assets/v2/screens/house.webp" alt="めし丸のおうち" width="598" height="1300" loading="lazy"></div><figcaption>めし丸のおうち</figcaption></figure>
+      <figure><div class="phone"><img src="assets/v2/screens/trends.webp" alt="最近の傾向" width="598" height="1300" loading="lazy"></div><figcaption>最近の傾向</figcaption></figure>
     </div>
   </div>
 </section>
 
-<footer>
+<!-- 料金 -->
+<section id="plans" aria-labelledby="plans-title">
   <div class="wrap">
-    <div class="foot">
-      <a class="brand" href="/"><img src="assets/logo.png" alt="メシコレ" style="height:30px;filter:brightness(0) invert(1)"></a>
-      <nav class="foot-links">
-        <a href="#faq">よくある質問</a>
-        <a href="contact.html">お問い合わせ</a>
-        <a href="terms.html">利用規約</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="legal.html">特定商取引法に基づく表記</a>
-      </nav>
+    <div class="sec-head">
+      <span class="kicker">料金</span>
+      <h2 id="plans-title">記録は、ずっと無料</h2>
+      <p>もっとくわしくふり返りたい人には、月額の PRO があります。</p>
     </div>
-    <div class="copyright">© 2026 メシコレ</div>
+    <div class="plans">
+      <div class="plan">
+        <h3>無料プラン</h3>
+        <p class="price">0<small>円</small></p>
+        <p>記録とふだんのふり返りは、これで十分です。</p>
+        <ul>
+          <li>食事の記録（名前・写真・成分表示・材料から）</li>
+          <li>今日のスコアと栄養バランス、AI のひとこと</li>
+          <li>週の傾向と、直近30日の記録</li>
+          <li>体重の記録</li>
+          <li>今月7日記録すると、その月の分析と月次レポート</li>
+        </ul>
+      </div>
+      <div class="plan pro">
+        <h3>PRO</h3>
+        <p class="price">500<small>円 / 月（税込）</small></p>
+        <p>いつでも解約できます。</p>
+        <ul>
+          <li>3ヶ月の傾向と、過去の月次レポート</li>
+          <li>全期間の記録</li>
+          <li>AI のふり返り</li>
+          <li>体重の推移グラフと、週ごとのふり返り</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- よくある質問 -->
+<section class="band" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">よくある質問</span>
+      <h2 id="faq-title">よくある質問</h2>
+    </div>
+    <div class="faq">
+      <details><summary>量やグラムが分からなくても大丈夫？</summary><p>大丈夫です。料理名や写真から、めし丸（AI）がおおよそのカロリーと栄養を出します。あとから直すこともできます。きちんと量を入れたい日は「材料から記録」も使えます。</p></details>
+      <details><summary>辞書にない料理はどうするの？</summary><p>名前を入れて「このまま追加」を押すと、AI がカロリーを見積もって記録に入れます。辞書に入れてほしい食品は、アプリからリクエストもできます。</p></details>
+      <details><summary>毎日記録できなくても続けられる？</summary><p>はい。つけ忘れた日も、30日前まであとから記録できます。連続記録は3日あいても途切れません。</p></details>
+      <details><summary>通知はどれくらい来ますか？</summary><p>最初の記録のあとに、声をかけてほしい時間（朝・昼・夜）を選べます。選ばなければ届きません。マイページでいつでも止められます。</p></details>
+      <details><summary>無料で使えますか？</summary><p>はい。食事の記録、今日のスコア、栄養バランス、AI のひとこと、週の傾向、直近30日の記録、体重の記録は無料です。今月7日記録すると、その月の分析と月次レポートも無料で見られます。3ヶ月の傾向、過去の月次レポート、全期間の記録、AI のふり返り、体重の推移グラフと週ごとのふり返りは、月額の PRO でご利用いただけます。</p></details>
+      <details><summary>PRO の料金と解約は？</summary><p>PRO は月額500円（税込）の自動更新サブスクリプションです。解約はいつでもでき、App Store または Google Play の購読の管理から行えます。</p></details>
+      <details><summary>iPhone と Android のどちらで使えますか？</summary><p>どちらでも使えます。App Store と Google Play からダウンロードしてください。</p></details>
+      <details><summary>記録は安全に管理されますか？</summary><p>記録はアカウントごとに保護して保存しています。くわしくは<a href="privacy.html" style="color:var(--green-ink);text-decoration:underline">プライバシーポリシー</a>をご覧ください。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 最後の CTA -->
+<section class="final" id="start" aria-labelledby="start-title">
+  <div class="wrap">
+    <div class="final-box">
+      <div>
+        <h2 id="start-title">今日のごはんから、<br>はじめよう</h2>
+        <p>書くのは、食べたものの名前だけ。カロリーは、めし丸が見積もります。</p>
+        <div class="stores">
+          <a class="store" href="https://apps.apple.com/jp/app/id6777846217" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small>ダウンロード</small><b>App Store</b></span></a>
+          <a class="store" href="https://play.google.com/store/apps/details?id=com.sawada3.meshikore" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small>手に入れよう</small><b>Google Play</b></span></a>
+        </div>
+        <p class="note">無料ではじめられます</p>
+      </div>
+      <img class="chara" src="assets/v2/chara/welcome.webp" alt="電球と記録のボードを持って、ウィンクするめし丸" width="810" height="660" loading="lazy">
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="logo" href="/"><img src="assets/v2/logo.png" alt="メシコレ" width="99" height="32"></a>
+    <nav aria-label="サイト">
+      <a href="#faq">よくある質問</a>
+      <a href="contact.html">お問い合わせ</a>
+      <a href="terms.html">利用規約</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="legal.html">特定商取引法に基づく表記</a>
+    </nav>
+    <small>© 2026 メシコレ</small>
   </div>
 </footer>
 
 <script>
-document.querySelectorAll('.faq-q').forEach(function(q){
-  q.addEventListener('click',function(){ q.parentElement.classList.toggle('open'); });
-});
-// 固定DLボタン：最下部のDLボタン（CTA）が近づいたらフェードアウト（重複回避）
 (function(){
-  var fab=document.querySelector('.mobile-cta'),cta=document.querySelector('.cta2');
-  if(!fab||!cta||!('IntersectionObserver' in window))return;
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ fab.classList.toggle('is-hidden', e.isIntersecting); });
-  },{root:null,rootMargin:'0px 0px 120px 0px',threshold:0});
-  io.observe(cta);
-})();
-// device mock carousel dots (mobile)
-(function(){
-  var track=document.getElementById('mockTrack'),dots=document.getElementById('mockDots');
-  if(!track||!dots)return;
-  var ds=dots.querySelectorAll('.dot');
-  track.addEventListener('scroll',function(){
-    var i=Math.round(track.scrollLeft/(track.clientWidth*0.82));
-    ds.forEach(function(d,n){ d.classList.toggle('is-on',n===Math.min(i,ds.length-1)); });
-  },{passive:true});
+  var top=document.getElementById('top');
+  function onScroll(){ top.classList.toggle('is-scrolled', window.scrollY>8); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
 })();
 </script>
 </body>
