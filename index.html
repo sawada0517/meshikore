@@ -68,16 +68,16 @@
     </div>
 
     <div class="diary-wrap">
-      <div class="diary" role="img" aria-label="記録の見本。「トースト、ゆで卵、キウイ」とひとこと書くと、トースト約190キロカロリー、ゆで卵約80キロカロリー、キウイ約50キロカロリー、合計約320キロカロリーと見積もられる">
+      <div class="diary" role="img" aria-label="記録の見本。「トースト、ゆで卵、キウイ」とひとこと書くと、トースト約180キロカロリー、ゆで卵約70キロカロリー、キウイ約50キロカロリー、合計約300キロカロリーと見積もられる">
         <span class="d-ex" aria-hidden="true">見本</span>
         <p class="d-date" aria-hidden="true"><span>10月22日（水）</span><b>朝ごはん</b></p>
         <p class="d-input" aria-hidden="true"><span id="typed">トースト、ゆで卵、キウイ</span><i class="d-caret"></i></p>
         <ul class="d-items" id="items" aria-hidden="true">
-          <li><span>トースト</span><em>約190 kcal</em></li>
-          <li><span>ゆで卵</span><em>約80 kcal</em></li>
+          <li><span>トースト</span><em>約180 kcal</em></li>
+          <li><span>ゆで卵</span><em>約70 kcal</em></li>
           <li><span>キウイ</span><em>約50 kcal</em></li>
         </ul>
-        <p class="d-total" aria-hidden="true"><span>合計</span><b id="total">約320<small>kcal</small></b></p>
+        <p class="d-total" aria-hidden="true"><span>合計</span><b id="total">約300<small>kcal</small></b></p>
       </div>
       <img class="diary-chara" src="assets/v2/chara/meal-hero.webp" alt="" width="600" height="685">
       <p class="diary-say" aria-hidden="true">量はだいたいでOK！</p>
@@ -307,7 +307,7 @@
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var typed=document.getElementById('typed'), items=[].slice.call(document.querySelectorAll('#items li')), total=document.getElementById('total');
   if(!typed||!items.length||!total) return;
-  var text='トースト、ゆで卵、キウイ', sums=['約190','約270','約320'];
+  var text='トースト、ゆで卵、キウイ', sums=['約180','約250','約300'];
   function setTotal(s){ total.firstChild.nodeValue=s; }
   function run(){
     typed.textContent=''; items.forEach(function(li){li.classList.add('is-off');}); setTotal('—');
