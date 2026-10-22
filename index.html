@@ -268,6 +268,18 @@
   </div>
 </footer>
 
+<!-- スクロールに合わせて、めし丸がおうちまで走る（飾りなので読み上げない）。点は朝・昼・おやつ・夕・夜・次の日 -->
+<div class="runner" id="runner" aria-hidden="true">
+  <div class="runner-in">
+    <p class="runner-say">あと<b>100</b>%</p>
+    <div class="runner-lane">
+      <div class="runner-track"><i class="runner-fill"></i><span class="runner-marks"></span></div>
+      <div class="runner-me"><img class="runner-img" src="assets/v2/chara/run.webp" alt="" width="144" height="144"></div>
+    </div>
+    <img class="runner-home" src="assets/v2/chara/house.webp" alt="" width="120" height="120">
+  </div>
+</div>
+
 <script>
 /* いちばん上の見本：ひとこと書く → 品に分かれてカロリーが出る、をくり返す。
    HTML には書き終えた状態を置いておく（スクリプトが動かない・動きを減らす設定の人には、その状態のまま見せる） */
@@ -288,6 +300,54 @@
   }
   var started=false, io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!started){started=true; setTimeout(run,600);} }):null;
   if(io) io.observe(typed); else run();
+})();
+
+/* いちばん下のめし丸：読んだところまで走り、おうちまで「あと◯%」を見せる。
+   スクロールしている間だけ跳ねて、止まると立ち止まる。上へ戻ると向きを変える。着いたら「ついた！」 */
+(function(){
+  var root=document.getElementById('runner'); if(!root) return;
+  var laneEl=root.querySelector('.runner-lane'), me=root.querySelector('.runner-me'), img=root.querySelector('.runner-img'),
+      say=root.querySelector('.runner-say'), fill=root.querySelector('.runner-fill'), box=root.querySelector('.runner-marks');
+  var secs=[].slice.call(document.querySelectorAll('.slot-morning,.slot-noon,.slot-snack,.slot-evening,.night,.slot-next'));
+  var marks=secs.map(function(){ var i=document.createElement('i'); box.appendChild(i); return {el:i,p:0}; });
+  var RUN='assets/v2/chara/run.webp', GOAL='assets/v2/chara/run-goal.webp';
+  new Image().src=GOAL;
+  var lastY=window.scrollY, idle=0, queued=false, shown='', range=0, lane=0, mw=0;
+
+  function maxScroll(){ return Math.max(1, document.documentElement.scrollHeight-window.innerHeight); }
+  // 走る幅（おうちの手前まで）と、各時間帯の点の位置。時間帯の見出しが画面のまん中に来たときに、めし丸がその点に乗る
+  function layout(){
+    mw=me.offsetWidth; lane=laneEl.clientWidth-mw; range=maxScroll();
+    secs.forEach(function(s,n){
+      var p=(s.getBoundingClientRect().top+window.scrollY-window.innerHeight*.5)/range;
+      marks[n].p=Math.min(1,Math.max(0,p));
+      marks[n].el.style.left=(marks[n].p*lane+mw/2)+'px';
+    });
+  }
+  function draw(){
+    queued=false;
+    var y=window.scrollY, p=Math.min(1,Math.max(0,y/range)), x=p*lane, goal=p>=.995;
+    me.style.transform='translateX('+x+'px)';
+    fill.style.width=(x+mw/2)+'px';
+    marks.forEach(function(m){ m.el.classList.toggle('is-past', p>=m.p); });
+    var text=goal?'ついた！':String(Math.max(1,Math.round((1-p)*100)));
+    if(text!==shown){ shown=text; say.innerHTML=goal?'<b>ついた！</b>':'あと<b>'+text+'</b>%'; img.src=goal?GOAL:RUN; }
+    root.classList.toggle('is-on', y>60);
+  }
+  function onScroll(){
+    var y=window.scrollY;
+    if(y!==lastY){ root.classList.toggle('is-back', y<lastY); lastY=y; }
+    root.classList.add('is-running');
+    clearTimeout(idle); idle=setTimeout(function(){ root.classList.remove('is-running'); },160);
+    if(!queued){ queued=true; requestAnimationFrame(draw); }
+  }
+  function relayout(){ layout(); draw(); }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', relayout);
+  window.addEventListener('load', relayout);
+  // 画像があとから読み込まれてページの長さが変わっても、点の位置を合わせ直す
+  if('ResizeObserver' in window) new ResizeObserver(relayout).observe(document.body);
+  relayout();
 })();
 </script>
 </body>

@@ -228,9 +228,30 @@ a{color:inherit;text-decoration:none}
 .final .stores{justify-content:center}
 
 /* ---------- footer ---------- */
-.foot{background:#EEF1E6;padding:30px 0 46px;font-size:13px;color:var(--sub)}
+.foot{background:#EEF1E6;padding:30px 0 calc(96px + env(safe-area-inset-bottom,0px));font-size:13px;color:var(--sub)}
 .foot-in{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;justify-content:space-between}
 .foot nav{display:flex;flex-wrap:wrap;gap:8px 18px}
 .foot nav a:hover{color:var(--green-ink)}
 
-@media (prefers-reduced-motion:reduce){.d-caret{animation:none}.store{transition:none}}
+/* ---------- いちばん下を走るめし丸（読んだところまで。おうちまで「あと◯%」） ----------
+   絵は公式の歩数のめし丸（assets/characters/step の step-good・step-high）。顔が透けているので、夜の深い緑でも顔が白く見えるよう、顔の後ろにだけ白を敷いて書き出した。
+   おうちは「めし丸のおうち」の絵（assets/characters/game/house.png） */
+.runner{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;width:min(460px,calc(100% - 32px));pointer-events:none;opacity:0;transform:translate(-50%,16px);transition:opacity .3s ease,transform .3s ease}
+.runner.is-on{opacity:1;transform:translate(-50%,0)}
+.runner-in{display:flex;align-items:center;gap:12px;height:50px;padding:0 10px 0 18px;border-radius:999px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 14px 30px -14px rgba(38,64,28,.55)}
+.runner-say{flex:none;min-width:5.4em;font-family:var(--display);font-weight:700;font-size:12.5px;line-height:1;color:var(--sub);white-space:nowrap}
+.runner-say b{font-size:19px;color:var(--green-ink);font-variant-numeric:tabular-nums;margin:0 1px}
+.runner-lane{position:relative;flex:1;align-self:stretch}
+.runner-track{position:absolute;left:0;right:0;bottom:15px;height:6px;border-radius:99px;background:#E4ECD8}
+.runner-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:inherit;background:var(--green)}
+.runner-marks i{position:absolute;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#C6D8AE;transition:background .2s}
+.runner-marks i.is-past{background:#fff}
+/* めし丸とおうちは、カプセルから少し頭を出す */
+.runner-me{position:absolute;left:0;bottom:14px;width:54px;will-change:transform}
+.runner-img{width:54px;transform-origin:50% 90%}
+.runner.is-running .runner-img{animation:hop .26s ease-in-out infinite alternate}
+.runner.is-back .runner-img{scale:-1 1}
+.runner-home{flex:none;align-self:flex-end;width:46px;margin-bottom:9px}
+@keyframes hop{from{transform:translateY(0) rotate(0)}to{transform:translateY(-5px) rotate(-5deg)}}
+
+@media (prefers-reduced-motion:reduce){.d-caret{animation:none}.store{transition:none}.runner,.runner-marks i{transition:none}.runner.is-running .runner-img{animation:none}}
