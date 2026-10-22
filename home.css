@@ -5,7 +5,7 @@
    枠線（border・1px の輪郭線）は使わない。区切りは、地の色の違い・余白・やわらかい影だけにする（2026-10-22 オーナーの指示） */
 :root{
   --paper:#F7F8F2; --sheet:#FFFFFF; --sheet-2:#FCFCF8; --rule:#E2E8D6;
-  --green:#7DA55A; --green-ink:#4F7A33; --green-soft:#EAF3E2; --green-pale:#F1F6EA;
+  --green:#7DA55A; --green-active:#6B9049; --green-ink:#4F7A33; --green-soft:#EAF3E2; --green-pale:#F1F6EA;
   --forest:#26401C; --forest-2:#30502A; --moon:#F4F1DE;
   --brown:#4A3826; --ink:#2B2D27; --sub:#5B5F55; --pencil:#7A7E73; --line:#E3E6DA;
   --orange:#E8923C; --orange-soft:#FCEBD7; --tape:rgba(186,214,152,.78);
@@ -30,8 +30,9 @@ a{color:inherit;text-decoration:none}
 .logo img{height:30px;width:auto}
 .top-nav{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:700;color:var(--sub)}
 .top-nav a:not(.top-cta):hover{color:var(--green-ink)}
-.top-cta{background:var(--ink);color:var(--paper);border-radius:999px;padding:9px 18px;font-size:14px;white-space:nowrap}
-.top-cta:hover{background:var(--green-ink)}
+/* 「無料ではじめる」はアプリのメインのボタンと同じ緑（lib/design/colors.ts の accentGreen・押したときは accentGreenActive） */
+.top-cta{background:var(--green);color:#fff;font-weight:700;border-radius:999px;padding:9px 18px;font-size:14px;white-space:nowrap}
+.top-cta:hover{background:var(--green-active)}
 @media (max-width:760px){.top-nav .navlink{display:none}}
 
 /* ---------- store buttons ---------- */
@@ -260,6 +261,8 @@ a{color:inherit;text-decoration:none}
 .runner-btn{display:inline-flex;align-items:center;gap:6px;padding:0 20px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:14px;font-weight:700;white-space:nowrap;transition:background .15s}
 .runner-btn:hover{background:var(--green-ink)}
 .runner-btn svg{width:16px;height:16px;flex:none}
+.go-start{background:var(--green);color:#fff}
+.go-start:hover{background:var(--green-active)}
 .go-store{display:none;padding:0 15px 0 13px}
 /* .to-store は iPhone・Android のとき（index.html のいちばん下のスクリプト）。そのときは幅があっても「無料ではじめる」1つ */
 @media (min-width:480px){html:not(.to-store) .go-store{display:inline-flex}html:not(.to-store) .go-start{display:none}}
